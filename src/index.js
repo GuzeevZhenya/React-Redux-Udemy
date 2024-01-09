@@ -4,8 +4,10 @@ import "./index.css";
 import { TodoList } from "./TodoLists/TodoList";
 import { App } from "./App";
 import { Provider } from "react-redux";
-import { store } from "./store2/store";
+import { configurateStore } from "./store2/store";
 // import { store } from "./TodoLists/store";
+
+const store = configurateStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
