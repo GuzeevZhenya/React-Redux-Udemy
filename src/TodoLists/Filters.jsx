@@ -1,32 +1,31 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectActiveFilter } from "../store2/filters/filters-selectors";
-import { setFilter } from "../store2/filters/filters-actions";
+// import { selectActiveFilter } from "../store2/filters/filters-selectors";
+// import { setFilter } from "../store2/filters/filters-actions";
+import { changeTodolistFilterAC } from "../store/redusers/filter-reducers";
+import { NavLink, useParams } from "react-router-dom";
 
 export const Filters = () => {
-  const dispatch = useDispatch();
-  const activeFilter = useSelector(selectActiveFilter);
+  const { filter = "all" } = useParams();
+  console.log(filter);
 
   return (
-    <div>
-      <button
-        onClick={() => dispatch(setFilter("all"))}
-        style={{ color: activeFilter === "all" ? "red" : "black" }}
-      >
+    <div style={{ display: "flex", gap: "0.75rem" }}>
+      <NavLink to="/all" style={{ color: filter === "all" ? "red" : "black" }}>
         all
-      </button>
-      <button
-        onClick={() => dispatch(setFilter("active"))}
-        style={{ color: activeFilter === "active" ? "red" : "black" }}
+      </NavLink>
+      <NavLink
+        to="/active"
+        style={{ color: filter === "active" ? "red" : "black" }}
       >
         active
-      </button>
-      <button
-        onClick={() => dispatch(setFilter("completed"))}
-        style={{ color: activeFilter === "completed" ? "red" : "black" }}
+      </NavLink>
+      <NavLink
+        to="/completed"
+        style={{ color: filter === "completed" ? "red" : "black" }}
       >
         completed
-      </button>
+      </NavLink>
     </div>
   );
 };

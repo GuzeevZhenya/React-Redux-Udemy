@@ -4,14 +4,21 @@ import "./index.css";
 import { TodoList } from "./TodoLists/TodoList";
 import { App } from "./App";
 import { Provider } from "react-redux";
-import { configurateStore } from "./store2/store";
+import { store } from "./store/store";
+// import { configurateStore } from "./store2/store";
 // import { store } from "./TodoLists/store";
-
-const store = configurateStore();
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// const store = configurateStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <TodoList />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoList />}>
+          <Route path=":filter" element={<TodoList />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );

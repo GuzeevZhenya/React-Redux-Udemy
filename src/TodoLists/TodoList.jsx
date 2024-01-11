@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
-  addTodo,
-  removeTodo,
-  toggleTodo,
-} from "../store/actions/todos-actions";
+  addNewTodoAC,
+  removeTodoAC,
+  toggleTodoAC,
+} from "../store/redusers/todos-reducers.js";
 import { selectVisibleTodos } from "../store2/todos/todos-selectors";
 import { Filters } from "./Filters";
-import { selectActiveFilter } from "../store2/filters/filters-selectors";
+// import { selectActiveFilter } from "../store2/filters/filters-selectors";
 import { createRef } from "react";
+import { useParams } from "react-router-dom";
 
 export const TodoList = () => {
   return (
@@ -26,11 +28,10 @@ const NewTodo = () => {
   const inputRef = createRef();
 
   const handleSubmit = (event) => {
-    
     event.preventDefault();
-    /*1 вариант*/ dispatch(addTodo(event.target.title.value));
+    /*1 вариант*/ dispatch(addNewTodoAC(event.target.title.value));
     // /*2 вариант*/ dispatch(inputRef.current.value));
-    event.target.reset();
+    // event.target.reset();
   };
 
   return (
@@ -42,9 +43,10 @@ const NewTodo = () => {
 };
 
 const List = () => {
-  const activeFilter = useSelector(selectActiveFilter);
-  const todos = useSelector((state) => selectVisibleTodos(state, activeFilter));
- 
+  const { filter } = useParams();
+  console.log(filter);
+  const todos = useSelector((state) => selectVisibleTodos(state, filter));
+
   const dispatch = useDispatch();
   return (
     <ul>
@@ -52,11 +54,13 @@ const List = () => {
         <li key={todo.title}>
           <input
             type="checkbox"
-            onChange={() => dispatch(toggleTodo(todo.id))}
+            onChange={() => dispatch(toggleTodoAC(todo.id))}
             checked={todo.completed}
           />
           {todo.title}
-          <button onClick={() => dispatch(removeTodo(todo.id))}>delete</button>
+          <button onClick={() => dispatch(removeTodoAC(todo.id))}>
+            delete
+          </button>
         </li>
       ))}
     </ul>

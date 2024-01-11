@@ -5,16 +5,16 @@ export const selectActiveTodos = (state) =>
 export const selectVisibleTodos = (state, filter) => {
   switch (filter) {
     case "all": {
-      return state.todos;
+      return state.todo;
     }
     case "active": {
-      return state.todos.filter((todo) => !todo.completed);
+      return state.todo.filter((todo) => !todo.completed);
     }
     case "completed": {
-      return state.todos.filter((todo) => todo.completed);
+      return state.todo.filter((todo) => todo.completed);
     }
     default: {
-      return state;
+      return state.todo;
     }
   }
 };
